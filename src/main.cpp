@@ -35,13 +35,84 @@ float r = 0, g = 0, b = 0;
 std::vector<glm::vec3> points;
 std::vector<glm::vec4> colors;
 //constants used in algorithm later
-const float sigma = 10;
-const float beta = 8.0 / 3.0;
-const float rho = 28;
-const float dt = 0.02;
+ float sigma = 10;
+ float beta = 8.0 / 3.0;
+ float rho = 28;
+ float dt = 0.02;
 
 int init()
 {
+	bool ask = true; //if false skip
+	std::cout << "Use defualts? Y/N ";
+	std::string in;
+	std::cin >> in; 
+	std::transform(in.begin(), in.end(), in.begin(), ::toupper);//uppers user input
+	try
+	{
+		if (in.find("Y") != std::string::npos) //find y
+		{
+			ask = false;
+		}
+	}
+	catch (std::exception)
+	{
+		printf("Something happened, my apologies. I'll use the default values");
+		system("pause");
+		ask = false; //default values on error
+	}
+
+	if (ask) // use user variables
+	{
+		std::cout << "Enter a value for Sigma: ";
+		std::string sig;
+		std::cin >> sig;
+		try {
+			sigma = std::stof(sig);//convert user input to float
+		}
+		catch (std::exception ex)
+		{
+			printf("Can only accept float using default"); //on error use default value
+			sigma = 10;
+		}
+
+		std::cout << "Enter a value for beta: ";
+		std::string bet;
+		std::cin >> bet;
+		try {
+			beta = std::stof(bet);
+		}
+		catch (std::exception ex)
+		{
+			printf("Can only accept float, using default");
+			beta = 8.0 / 3.0;
+		}
+
+		std::cout << "Enter a value for rho: ";
+		std::string rhos;
+		std::cin >> rhos;
+		try {
+			rho = std::stof(rhos);
+		}
+		catch (std::exception ex)
+		{
+			printf("Can only accept float, using default");
+			rho = 28.0;
+		}
+
+		std::cout << "Enter a value for deltatime: ";
+		std::string dti;
+		std::cin >> dti;
+		try {
+			dt = std::stof(dti);
+		}
+		catch (std::exception ex)
+		{
+			printf("Can only accept float, using default");
+			dt = 0.02;
+		}
+	}
+
+
 	//load video and events
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_EVENTS) != 0)
 	{
