@@ -20,6 +20,3 @@ set (CMAKE_CXX_STANDARD 11)
 
 #Set the project for VS to use.
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "LorenzAttractor")
-
-#Perform prebuild
-add_custom_command(TARGET LorenzAttractor  PRE_BUILD COMMAND "pre_build_Script.bat")
